@@ -70,7 +70,7 @@ export default function ProductsListing() {
                 </div>
 
 
-                <div class="collapse" id="collapseExample">
+                <div className="collapse" id="collapseExample">
 
                     <div className="input flex-nowrap">
                         <label>Budget</label>
@@ -105,17 +105,17 @@ export default function ProductsListing() {
                         <div className="d-flex flex-row justify-content-evenly">
                             <div>
                                 <input type="radio" id="age1" name="age" value="1" />
-                                <label for="age1">Beginner</label>
+                                <label htmlFor="age1">Beginner</label>
                             </div>
 
                             <div>
                                 <input type="radio" id="age2" name="age" value="2" />
-                                <label for="age2">Intermediate</label>
+                                <label htmlFor="age2">Intermediate</label>
                             </div>
 
                             <div>
                                 <input type="radio" id="age3" name="age" value="3" />
-                                <label for="age3">Expert</label>
+                                <label htmlFor="age3">Expert</label>
                             </div>
 
                         </div>
@@ -125,7 +125,7 @@ export default function ProductsListing() {
 
                     <div className="input flex-nowrap">
                         <label>Categories</label>
-                        <select class="form-select" multiple aria-label="multiple select example">
+                        <select className="form-select" multiple aria-label="multiple select example">
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -136,7 +136,7 @@ export default function ProductsListing() {
 
                     <div className="input flex-nowrap">
                         <label>Designers</label>
-                        <select class="form-select" multiple aria-label="multiple select example">
+                        <select className="form-select" multiple aria-label="multiple select example">
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -147,7 +147,7 @@ export default function ProductsListing() {
 
                     <div className="input flex-nowrap">
                         <label>Mechanics</label>
-                        <select class="form-select" multiple aria-label="multiple select example">
+                        <select className="form-select" multiple aria-label="multiple select example">
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>

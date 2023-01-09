@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
 // import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
@@ -25,21 +26,65 @@ export default function CustomerProvider(props) {
 
                     const accessToken = response.data.accessToken;
                     const refreshToken = response.data.refreshToken;
+                    const customerName = response.data.customerName;
+
+                    // console.log("apple")
+                    // console.log(response.data)
         
                     localStorage.setItem('accessToken', JSON.stringify(accessToken));
                     localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
+                    localStorage.setItem("customerName", JSON.stringify(customerName));
+
+                    toast.success(
+                        `Welcome Back, ${customerName}.`, {
+                        position: "top-center",
+                        autoClose: 1800,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                      }
+                    )
 
                     return true
 
                 } else {
 
-                    console.log(response.data.error)
+                    toast.error(
+                        `Please enter your authentication details`, {
+                        position: "top-center",
+                        autoClose: 1800,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                      }
+                    )
 
+                    console.log(response.data.error)
+                
                 }
                 
 
             } catch (error) {
                 
+                toast.error(
+                    "Authentication details you provided are incorrect.", {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                  }
+                )
+
                 console.log(error)
 
             }
@@ -53,6 +98,10 @@ export default function CustomerProvider(props) {
                 'Authorization': JSON.parse(localStorage.getItem('accessToken'))
             }
 
+                let customerName = localStorage.getItem('customerName')
+
+                console.log(customerName)
+
 			try {
 
 				await axios.post(API_URL + '/customers/logout', {
@@ -62,17 +111,57 @@ export default function CustomerProvider(props) {
                 );
 
 
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
+                // console.log(customerName)
+
+
+                toast.success(
+                    `See you again, ${JSON.parse(customerName)}.`, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                  }
+                )
+
+                localStorage.clear();
 
 			} catch (error) {
 
-				console.log(error);
+                toast.error(
+                    `Error occurr, try again later.`, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                  }
+                )
 
+				console.log(error);
 
 			}
 		},
 
+        register: async (customerData) => {
+
+            try {
+                
+                const response = await axios.post(API_URL + '/customers/register', customerData);
+
+            } catch (error) {
+
+                console.log(error)
+
+            }
+
+		},
 
 
 

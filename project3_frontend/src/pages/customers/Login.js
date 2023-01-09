@@ -1,4 +1,3 @@
-
 import React, { useState, useContext } from 'react';
 import CustomerContext from "../../context/customers"
 
@@ -23,7 +22,6 @@ export default function Login(props) {
 
     const customerLogin = async () => {
 
-
         const result = await customerContext.login(formValue);
 
         console.log(result)
@@ -32,9 +30,9 @@ export default function Login(props) {
 
             document.querySelector(".loginErrorMessage").style.display = "inline-block"
 
-        }
-        else {
+        } else {
 
+            document.querySelector(".loginErrorMessage").style.display = "none"
             console.log('Welcome back');
 
         }

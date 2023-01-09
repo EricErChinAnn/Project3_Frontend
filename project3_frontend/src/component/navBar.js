@@ -13,7 +13,7 @@ import SubmittedForm from "../pages/SubmitForm";
 import LandingPage from '../pages/LandingPage';
 import ProductsListing from "../pages/products/ProductsListing";
 import Login from "../pages/customers/Login";
-import Logout from "../pages/customers/Logout";
+import Register from "../pages/customers/Register";
 
 export default function Navbar() {
 
@@ -46,11 +46,12 @@ export default function Navbar() {
                 <Link className='link nav-link' to="/customers/login">Login</Link>
               </li>
               <li className="nav-item">
-              <Link className='link nav-link' to="/customers/logout">Logout</Link>
-              {/* <logout button></logout> */}
               <CustomerProvider>
                 <button onClick={customerLogout}>Logout</button>
               </CustomerProvider>
+              </li>
+              <li className="nav-item">
+              <Link className='link nav-link' to="/customers/register">Register</Link>
               </li>
             </ul>
           </div>
@@ -59,7 +60,7 @@ export default function Navbar() {
           <Routes>
   
             <Route path='/customers/login' element={<Login />} />
-            <Route path='/customers/logout' element={<Logout />} />
+            <Route path='/customers/register' element={<Register />} />
   
             <Route path='/' element={<LandingPage />} />
             <Route path='/about' element={<AboutUs />} />
