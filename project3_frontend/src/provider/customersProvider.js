@@ -22,7 +22,7 @@ export default function CustomerProvider(props) {
 
                 // console.log(response)
 
-                if(!response.data.error){
+                if (!response.data.error) {
 
                     const accessToken = response.data.accessToken;
                     const refreshToken = response.data.refreshToken;
@@ -30,7 +30,7 @@ export default function CustomerProvider(props) {
 
                     // console.log("apple")
                     // console.log(response.data)
-        
+
                     localStorage.setItem('accessToken', JSON.stringify(accessToken));
                     localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
                     localStorage.setItem("customerName", JSON.stringify(customerName));
@@ -45,7 +45,7 @@ export default function CustomerProvider(props) {
                         draggable: true,
                         progress: undefined,
                         theme: "dark",
-                      }
+                    }
                     )
 
                     return true
@@ -62,16 +62,16 @@ export default function CustomerProvider(props) {
                         draggable: true,
                         progress: undefined,
                         theme: "dark",
-                      }
+                    }
                     )
 
                     console.log(response.data.error)
-                
+
                 }
-                
+
 
             } catch (error) {
-                
+
                 toast.error(
                     "Authentication details you provided are incorrect.", {
                     position: "top-center",
@@ -82,7 +82,7 @@ export default function CustomerProvider(props) {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                  }
+                }
                 )
 
                 console.log(error)
@@ -98,16 +98,16 @@ export default function CustomerProvider(props) {
                 'Authorization': JSON.parse(localStorage.getItem('accessToken'))
             }
 
-                let customerName = localStorage.getItem('customerName')
+            let customerName = localStorage.getItem('customerName')
 
-                console.log(customerName)
+            // console.log(customerName)
 
-			try {
+            try {
 
-				await axios.post(API_URL + '/customers/logout', {
-					refreshToken: JSON.parse(localStorage.getItem('refreshToken'))
-				},
-                {headers:headers}
+                await axios.post(API_URL + '/customers/logout', {
+                    refreshToken: JSON.parse(localStorage.getItem('refreshToken'))
+                },
+                    { headers: headers }
                 );
 
 
@@ -124,12 +124,12 @@ export default function CustomerProvider(props) {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                  }
+                }
                 )
 
                 localStorage.clear();
 
-			} catch (error) {
+            } catch (error) {
 
                 toast.error(
                     `Error occurr, try again later.`, {
@@ -141,29 +141,90 @@ export default function CustomerProvider(props) {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                  }
+                }
                 )
 
-				console.log(error);
+                console.log(error);
 
-			}
-		},
+            }
+        },
 
         register: async (customerData) => {
 
+                try {
+
+
+                    const response = await axios.post(API_URL + '/customers/register', customerData);
+
+
+                    toast.success(
+                        `Account created.`, {
+                        position: "top-center",
+                        autoClose: 1800,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    })
+
+
+                } catch (error) {
+
+
+                    toast.error(
+                        `Session have ended, login again to continue.`, {
+                        position: "top-center",
+                        autoClose: 1800,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    })
+
+                    localStorage.clear()
+
+                    console.log(error)
+
+                }
+
+        },
+
+        refresh: async () => {
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': JSON.parse(localStorage.getItem('accessToken'))
+            }
+
             try {
-                
-                const response = await axios.post(API_URL + '/customers/register', customerData);
+
+               let response = await axios.post(API_URL + '/customers/refresh', {
+                    refreshToken: JSON.parse(localStorage.getItem('refreshToken'))
+                },
+                    { headers: headers }
+                );
+
+                let accessToken = response.data.accessToken
+
+                console.log(localStorage)
+
+                localStorage.setItem("accessToken",JSON.stringify(accessToken))
+
+                console.log(localStorage)
 
             } catch (error) {
+
+
+
 
                 console.log(error)
 
             }
-
-		},
-
-
+        },
 
     }
 

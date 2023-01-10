@@ -23,6 +23,10 @@ export default function Navbar() {
       await customerContext.logout();
   }
 
+  const refreshToken = async()=>{
+    await customerContext.refresh();
+  }
+
 
 
 
@@ -48,6 +52,11 @@ export default function Navbar() {
               <li className="nav-item">
               <CustomerProvider>
                 <button onClick={customerLogout}>Logout</button>
+              </CustomerProvider>
+              </li>
+              <li className="nav-item">
+              <CustomerProvider>
+                <button onClick={refreshToken}>refresh</button>
               </CustomerProvider>
               </li>
               <li className="nav-item">

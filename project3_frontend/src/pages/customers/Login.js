@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { toast } from 'react-toastify';
 import CustomerContext from "../../context/customers"
 
 export default function Login(props) {
@@ -20,6 +21,7 @@ export default function Login(props) {
         });
     };
 
+
     const customerLogin = async () => {
 
         const result = await customerContext.login(formValue);
@@ -36,6 +38,46 @@ export default function Login(props) {
             console.log('Welcome back');
 
         }
+
+        let startTime = Date.now()
+        let endTime = startTime + 7200000
+
+       async function refreshTokenRunner(){
+            startTime = Date.now()
+            if(startTime > endTime || !localStorage.getItem("refreshToken")){
+
+                console.log("session have ended")
+
+                toast.error(
+                    `Session have ended, login again to continue.`, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                })
+
+                clearInterval(refreshTokenRunnerStart)
+
+            } else {
+                console.log(!localStorage.getItem("refreshToken"))
+                await customerContext.refresh()
+            }
+        }
+
+        let refreshTokenRunnerStart = setInterval(refreshTokenRunner,600000)
+
+        if(localStorage.getItem("refreshToken")){
+            return null
+        }
+
+        refreshTokenRunnerStart()
+
+
+
     }
 
 
