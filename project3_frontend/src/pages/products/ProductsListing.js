@@ -30,7 +30,6 @@ export default function ProductsListing() {
         'mechanics': [""],
     })
 
-
     const updateSearch = (event) => {
         setSearch({
             ...search,
@@ -159,7 +158,7 @@ export default function ProductsListing() {
         }
         getTables()
 
-    }, [])
+    },[])
 
 
     const searhBtnClick = async () => {
@@ -386,12 +385,6 @@ export default function ProductsListing() {
 
 
 
-
-
-
-
-
-
                 <h1>Products</h1>
 
                 {/* Map display of each Product */}
@@ -448,8 +441,7 @@ export default function ProductsListing() {
                             </div>
 
                         )
-                    })
-                }
+                    })}
 
             </React.Fragment >
 
