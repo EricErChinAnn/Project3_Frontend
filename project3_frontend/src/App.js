@@ -8,6 +8,7 @@ import "./App.css";
 import Navbar from "./component/navBar";
 
 import CustomerProvider from "./provider/customersProvider";
+import ProductsProvider from "./provider/productsProvider";
 
 
 export default function App() {
@@ -17,7 +18,9 @@ export default function App() {
     <React.Fragment>
 
       <CustomerProvider>
-        <Navbar />
+        <ProductsProvider>
+          <Navbar />
+        </ProductsProvider>
       </CustomerProvider>
       <div>
         <ToastContainer

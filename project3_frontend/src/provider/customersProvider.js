@@ -154,8 +154,8 @@ export default function CustomerProvider(props) {
                 try {
 
 
-                    const response = await axios.post(API_URL + '/customers/register', customerData);
-
+                    await axios.post(API_URL + '/customers/register', customerData);
+                    // console.log(response)
 
                     toast.success(
                         `Account created.`, {

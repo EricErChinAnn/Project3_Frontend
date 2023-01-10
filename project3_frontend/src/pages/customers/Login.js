@@ -63,20 +63,14 @@ export default function Login(props) {
                 clearInterval(refreshTokenRunnerStart)
 
             } else {
-                console.log(!localStorage.getItem("refreshToken"))
+                // console.log(!localStorage.getItem("refreshToken"))
                 await customerContext.refresh()
             }
         }
 
         let refreshTokenRunnerStart = setInterval(refreshTokenRunner,600000)
 
-        if(localStorage.getItem("refreshToken")){
-            return null
-        }
-
         refreshTokenRunnerStart()
-
-
 
     }
 
