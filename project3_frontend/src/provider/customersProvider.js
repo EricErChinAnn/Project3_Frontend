@@ -9,10 +9,29 @@ const API_URL = "https://6000-ericerchina-project3bac-s8ol8p2mxd0.ws-us82.gitpod
 
 export default function CustomerProvider(props) {
 
-    // const [custValue, setcustValue] = useState({});
+    const [checkLogin, setCheckLogin] = useState(false)
+
+    const [cartValue, setCartValue] = useState([])
     // const navigateTo = useNavigate();
 
     const customerContext = {
+
+
+        checkLogin,
+        // Customer Login,Logout 
+        checkLocalStorage: async () =>{
+            try {
+                
+                if(localStorage?.getItem("accessToken")){
+                    setCheckLogin(true)
+                } else {
+                    setCheckLogin(false)
+                }
+
+            } catch (error) {
+                console.log("Provider: " + error)
+            }
+        },
 
         login: async (customerLogin) => {
 
@@ -47,7 +66,7 @@ export default function CustomerProvider(props) {
                         theme: "dark",
                     }
                     )
-
+                    setCheckLogin(true)
                     return true
 
                 } else {
@@ -128,6 +147,7 @@ export default function CustomerProvider(props) {
                 )
 
                 localStorage.clear();
+                setCheckLogin(false)
 
             } catch (error) {
 
@@ -151,45 +171,45 @@ export default function CustomerProvider(props) {
 
         register: async (customerData) => {
 
-                try {
+            try {
 
 
-                    await axios.post(API_URL + '/customers/register', customerData);
-                    // console.log(response)
+                await axios.post(API_URL + '/customers/register', customerData);
+                // console.log(response)
 
-                    toast.success(
-                        `Account created.`, {
-                        position: "top-center",
-                        autoClose: 1800,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "dark",
-                    })
-
-
-                } catch (error) {
+                toast.success(
+                    `Account created.`, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                })
 
 
-                    toast.error(
-                        `Session have ended, login again to continue.`, {
-                        position: "top-center",
-                        autoClose: 1800,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "dark",
-                    })
+            } catch (error) {
 
-                    localStorage.clear()
 
-                    console.log(error)
+                toast.error(
+                    `Session have ended, login again to continue.`, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                })
 
-                }
+                localStorage.clear()
+
+                console.log(error)
+
+            }
 
         },
 
@@ -202,7 +222,7 @@ export default function CustomerProvider(props) {
 
             try {
 
-               let response = await axios.post(API_URL + '/customers/refresh', {
+                let response = await axios.post(API_URL + '/customers/refresh', {
                     refreshToken: JSON.parse(localStorage.getItem('refreshToken'))
                 },
                     { headers: headers }
@@ -212,7 +232,7 @@ export default function CustomerProvider(props) {
 
                 console.log(localStorage)
 
-                localStorage.setItem("accessToken",JSON.stringify(accessToken))
+                localStorage.setItem("accessToken", JSON.stringify(accessToken))
 
                 console.log(localStorage)
 
@@ -225,6 +245,39 @@ export default function CustomerProvider(props) {
 
             }
         },
+
+
+
+        setCartValue,
+        cartValue,
+
+
+
+        //Customer Carts
+        getCart: async () => {
+            try {
+
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': JSON.parse(localStorage.getItem('accessToken'))
+                }
+
+                let cart = await axios.get(API_URL + "/cart", {
+                    headers: headers
+                })
+
+                // console.log(cart)
+                return cart
+
+            } catch (error) {
+
+                // console.log("getCartError")
+                console.log(error)
+
+            }
+        }
+
+
 
     }
 

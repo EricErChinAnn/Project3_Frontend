@@ -46,7 +46,7 @@ export default function Login(props) {
             startTime = Date.now()
             if(startTime > endTime || !localStorage.getItem("refreshToken")){
 
-                console.log("session have ended")
+                // console.log("Session have ended")
 
                 toast.error(
                     `Session have ended, login again to continue.`, {
@@ -63,14 +63,19 @@ export default function Login(props) {
                 clearInterval(refreshTokenRunnerStart)
 
             } else {
-                // console.log(!localStorage.getItem("refreshToken"))
-                await customerContext.refresh()
+                // console.log(localStorage.getItem("refreshToken"))
+                let apple = await customerContext.refresh()
+
+                console.log(apple)
             }
         }
 
-        let refreshTokenRunnerStart = setInterval(refreshTokenRunner,600000)
+        let refreshTokenRunnerStart = setInterval(refreshTokenRunner,
+            600000
+            // 3000
+            )
 
-        refreshTokenRunnerStart()
+        // refreshTokenRunnerStart()
 
     }
 
