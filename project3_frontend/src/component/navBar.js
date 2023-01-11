@@ -93,7 +93,7 @@ export default function Navbar() {
           <Route exact path="/form-submitted" element={<SubmittedForm />} />
 
         </Routes>
-        
+
       </Router>
 
       <div className="offcanvas offcanvas-end text-bg-dark" tabIndex="-1" id="offcanvasCart" aria-labelledby="offcanvasRightLabel">
@@ -103,8 +103,11 @@ export default function Navbar() {
         </div>
         <div className="offcanvas-body">
 
-          {!customerContext.checkLogin ? <OffCanvasCart /> : <React.Fragment><div>Start Shopping</div></React.Fragment>}
+          {customerContext.checkLogin ? <OffCanvasCart /> : <React.Fragment><div>Start Shopping</div></React.Fragment>}
 
+        </div>
+        <div className="offcanvas-footer p-3 d-flex justify-content-center" style={{ backgroundColor: "black" }}>
+          <h5 className="offcanvas-title" id="offcanvasCartLabel">Checkout</h5>
         </div>
       </div>
     </React.Fragment>
