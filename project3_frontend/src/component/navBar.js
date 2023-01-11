@@ -17,70 +17,60 @@ import Register from "../pages/customers/Register";
 
 export default function Navbar() {
 
-    const customerContext = useContext(CustomerContext)
+  const customerContext = useContext(CustomerContext)
 
-    const customerLogout = async () => {
-      await customerContext.logout();
+  const customerLogout = async () => {
+    await customerContext.logout();
   }
 
-  const refreshToken = async()=>{
+  const refreshToken = async () => {
     await customerContext.refresh();
   }
 
+  return (
 
-
-
-
-
-
-    return (
-
-        <Router>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <div className="container-fluid" >
-            <Link className='link navbar-brand' to="/"><h1>LandingPage</h1></Link>
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className='link nav-link' to="/about">About Us</Link>
-              </li>
-              <li className="nav-item">
-                <Link className='link nav-link' to="/products">Products</Link>
-              </li>
-              <li className="nav-item">
-                <Link className='link nav-link' to="/customers/login">Login</Link>
-              </li>
-              <li className="nav-item">
-              <CustomerProvider>
-                <button onClick={customerLogout}>Logout</button>
-              </CustomerProvider>
-              </li>
-              <li className="nav-item">
-              <CustomerProvider>
-                <button onClick={refreshToken}>refresh</button>
-              </CustomerProvider>
-              </li>
-              <li className="nav-item">
+    <Router>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid" >
+          <Link className='link navbar-brand' to="/"><h1>LandingPage</h1></Link>
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className='link nav-link' to="/about">About Us</Link>
+            </li>
+            <li className="nav-item">
+              <Link className='link nav-link' to="/products">Products</Link>
+            </li>
+            <li className="nav-item">
+              <Link className='link nav-link' to="/customers/login">Login</Link>
+            </li>
+            <li className="nav-item">
               <Link className='link nav-link' to="/customers/register">Register</Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        {/* <CustomerProvider> */}
-          <Routes>
-  
-            <Route path='/customers/login' element={<Login />} />
-            <Route path='/customers/register' element={<Register />} />
-  
-            <Route path='/' element={<LandingPage />} />
-            <Route path='/about' element={<AboutUs />} />
-            <Route exact path="/form-submitted" element={<SubmittedForm />} />
-            <Route path='/products' element={<ProductsListing />} />
-  
-          </Routes>
-        {/* </CustomerProvider> */}
-  
-      </Router>
+            </li>
+            <li className="nav-item">
+              <Link className='link nav-link' to="/cart">My Cart</Link>
+            </li>
+            <li className="nav-item">
+                <button onClick={customerLogout}>Logout</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
-    )
+      <Routes>
+
+        <Route path='/customers/login' element={<Login />} />
+        <Route path='/customers/register' element={<Register />} />
+
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/about' element={<AboutUs />} />
+        <Route exact path="/form-submitted" element={<SubmittedForm />} />
+        <Route path='/products' element={<ProductsListing />} />
+
+      </Routes>
+
+
+    </Router>
+
+  )
 
 }

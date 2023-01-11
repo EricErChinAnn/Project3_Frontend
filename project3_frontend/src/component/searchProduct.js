@@ -4,7 +4,7 @@ import ProductContext from "../context/products"
 
 export default function ProductsSearch() {
 
-    const API_URL = "https://6000-ericerchina-project3bac-s8ol8p2mxd0.ws-us81.gitpod.io/api"
+    const API_URL = "https://6000-ericerchina-project3bac-s8ol8p2mxd0.ws-us82.gitpod.io/api"
 
     const [search, setSearch] = useState({
         'name': "",

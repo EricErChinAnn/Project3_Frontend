@@ -23,6 +23,7 @@ export default function App() {
           <Navbar />
         </ProductsProvider>
       </CustomerProvider>
+
       <div>
         <ToastContainer
           position="top-center"
@@ -38,7 +39,7 @@ export default function App() {
         />
       </div>
 
-      <a className="backToTop rounded-pill px-2" href="#"><i class="bi bi-arrow-bar-up"></i></a>
+      <a className="backToTop rounded-pill px-2" href="#"><i className="bi bi-arrow-bar-up"></i></a>
       <footer>
         <div className="footer-content">
           <h3>The Struggle Is Real</h3>
