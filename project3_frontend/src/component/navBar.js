@@ -96,16 +96,16 @@ export default function Navbar() {
 
       </Router>
 
-      <div className="offcanvas offcanvas-end show text-bg-dark" tabIndex="-1" id="offcanvasCart" aria-labelledby="offcanvasRightLabel">
+      <div className="offcanvas offcanvas-end text-bg-dark" tabIndex="-1" id="offcanvasCart" aria-labelledby="offcanvasRightLabel">
         <div className="offcanvas-header" style={{ backgroundColor: "black" }}>
           <h5 className="offcanvas-title" id="offcanvasCartLabel"><i className="bi bi-basket3-fill"></i> My Cart</h5>
           <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div className="offcanvas-body">
+        
 
           {customerContext.checkLogin ? <OffCanvasCart /> : <React.Fragment><div>Start Shopping</div></React.Fragment>}
 
-        </div>
+        
         <div className="offcanvas-footer p-3 d-flex justify-content-center" style={{ backgroundColor: "black" }}>
           <h5 className="offcanvas-title" id="offcanvasCartLabel">Checkout</h5>
         </div>

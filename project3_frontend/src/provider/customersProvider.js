@@ -316,8 +316,106 @@ export default function CustomerProvider(props) {
 
             }
 
-        }
+        },
 
+        addToCart: async (productId, productName, quantity) => {
+
+            try {
+
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': JSON.parse(localStorage.getItem('accessToken'))
+                }
+
+                let response = await axios.post(API_URL + `/cart/${productId}/add`,
+
+                    { quantity: parseInt(quantity) },
+
+                    { headers: headers }
+                )
+
+                toast.success(
+                    `<${productName}> added to cart `, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                })
+
+                console.log(response)
+
+
+            } catch (error) {
+
+                toast.error(
+                    `An error occurred while updating cart item. Please try again`, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                })
+
+                console.log(error)
+
+            }
+
+        },
+        
+        removeFromCart: async (productId, productName) => {
+
+            try {
+
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': JSON.parse(localStorage.getItem('accessToken'))
+                }
+
+                let response = await axios.delete(API_URL + `/cart/${productId}/remove`,
+                    { headers: headers }
+                )
+
+                toast.success(
+                    `<${productName}> removed to cart `, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                })
+
+                console.log(response)
+
+
+            } catch (error) {
+
+                toast.error(
+                    `An error occurred while removing cart item. Please try again`, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                })
+
+                console.log(error)
+
+            }
+
+        }
 
 
     }

@@ -1,5 +1,7 @@
 .eachCard{
     background-color: black;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .card-img{

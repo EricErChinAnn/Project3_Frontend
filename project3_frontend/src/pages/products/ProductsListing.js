@@ -3,10 +3,12 @@ import "./ProductListing.css"
 
 import ProductContext from "../../context/products";
 import { toast } from "react-toastify";
+import CustomerContext from "../../context/customers";
 
 export default function ProductsListing() {
 
     const productContext = useContext(ProductContext)
+    const customerContext = useContext(CustomerContext)
 
     const [products, setProducts] = useState([])
 
@@ -158,7 +160,7 @@ export default function ProductsListing() {
         }
         getTables()
 
-    },[])
+    }, [])
 
 
     const searhBtnClick = async () => {
@@ -222,36 +224,64 @@ export default function ProductsListing() {
 
     }
 
-    const searchReset = async ()=>{
+    const searchReset = async () => {
         let all = await productContext.getProducts()
-            await setProducts([])
-            await setProducts(all)
+        await setProducts([])
+        await setProducts(all)
 
-            await setSearch({
-                ...search,
-                'name': "",
-                'min_cost': "",
-                'max_cost': "",
-                'player_min': "",
-                'player_max': "",
-                'avg_duration': "",
-                "min_age": "",
-                'difficulty_id': "",
-                'categories': [""],
-                'designers': [""],
-                'mechanics': [""],
-            });
+        await setSearch({
+            ...search,
+            'name': "",
+            'min_cost': "",
+            'max_cost': "",
+            'player_min': "",
+            'player_max': "",
+            'avg_duration': "",
+            "min_age": "",
+            'difficulty_id': "",
+            'categories': [""],
+            'designers': [""],
+            'mechanics': [""],
+        });
 
-            console.log(search)
+        console.log(search)
     }
 
+    let pleaseLogin = () => {
+        toast(
+            `Please login to purchase`, {
+            position: "top-center",
+            autoClose: 1800,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        })
+    }
 
+    let addToCartOne = (productId, productName) => {
+        customerContext.addToCart(productId, productName, 1)
+    }
 
-    let checkStockOnBtn = (value) => {
-        if (value > 0) {
-            return <a href="#" className="addToCartBtn btn btn-primary">Add to Cart</a>
+    let checkStockOnBtn = (stock,productId, productName) => {
+        if (stock > 0) {
+            if (localStorage?.getItem("accessToken")) {
+                return <a href="#" className="addToCartBtn btn btn-primary"
+                    onClick={(e)=>{
+                        e.preventDefault()
+                        addToCartOne(productId, productName)
+                    }}
+                >Add to Cart</a>
+            } else {
+                return <button href="#" className="addToCartBtn btn btn-primary"
+                    onClick={pleaseLogin}
+                >Add to Cart</button>
+            }
         } else {
-            return <a href="#" className="addToCartBtn btn btn-secondary" disabled>Out of Stock</a>
+            return <a href="#" className="addToCartBtn btn btn-secondary" disabled
+            >Out of Stock</a>
         }
     }
 
@@ -391,53 +421,54 @@ export default function ProductsListing() {
                 {
                     products.map((e, i) => {
                         return (
-
-                            <div className="card text-bg-dark eachCard mx-2 my-2" key={i} >
-                                <img src={e.images[0].image_url} className="card-img" alt="No Image Found" />
-                                <div className="card-img-overlay d-flex align-items-end">
-                                    <div className="d-flex flex-column mb-5 w-100">
-                                        <div className="d-flex flex-d justify-content-between">
-                                            <div>
-                                                <h3 className="card-title m-0 p-0">{e.name}</h3>
-                                                <p className="m-0 p-0">{e.difficulty.difficulty}</p>
+                            <div className=" mx-2 my-2 d-flex flex-column" key={i}>
+                                <div className="card text-bg-dark eachCard " >
+                                    <img src={e.images[0].image_url} className="card-img" alt="No Image Found" />
+                                    <div className="card-img-overlay d-flex align-items-end">
+                                        <div className="d-flex flex-column mb-5 w-100">
+                                            <div className="d-flex flex-d justify-content-between">
+                                                <div>
+                                                    <h3 className="card-title m-0 p-0">{e.name}</h3>
+                                                    <p className="m-0 p-0">{e.difficulty.difficulty}</p>
+                                                </div>
+                                                <div>
+                                                    <h3 className="card-title">S${(e.cost / 100).toFixed(2)}</h3>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h3 className="card-title">S${(e.cost / 100).toFixed(2)}</h3>
+
+
+
+
+                                            <div className="d-flex flex-row flex-wrap my-1">
+                                                {e.categories.map((e, i) => {
+                                                    return (
+                                                        <p className="my-1 mx-1 px-3 rounded-pill flex-nowrap" key={i}
+                                                            style={{ color: "#f4eee3", backgroundColor: "#886443" }}>{e.category}
+                                                        </p>
+                                                    )
+                                                })}
                                             </div>
+
+
+                                            <div className="d-flex flex-row flex-wrap my-1">
+                                                {e.mechanics.map((e, i) => {
+                                                    return (
+                                                        <p className="my-1 mx-1 px-3 rounded-pill flex-nowrap" key={i}
+                                                            style={{ color: "#f4eee3", backgroundColor: "#2d6100" }}>{e.mechanic}
+                                                        </p>
+                                                    )
+                                                })}
+                                            </div>
+
+
+
+
+                                            <p className="m-0 p-0">{e.player_min} ~ {e.player_max} Players</p>
+                                            <p className="m-0 p-0">For ages {e.min_age} above</p>
                                         </div>
-
-
-
-
-                                        <div className="d-flex flex-row flex-wrap my-1">
-                                            {e.categories.map((e, i) => {
-                                                return (
-                                                    <p className="my-1 mx-1 px-3 rounded-pill flex-nowrap" key={i}
-                                                        style={{ color: "#f4eee3", backgroundColor: "#886443" }}>{e.category}
-                                                    </p>
-                                                )
-                                            })}
-                                        </div>
-
-
-                                        <div className="d-flex flex-row flex-wrap my-1">
-                                            {e.mechanics.map((e, i) => {
-                                                return (
-                                                    <p className="my-1 mx-1 px-3 rounded-pill flex-nowrap" key={i}
-                                                        style={{ color: "#f4eee3", backgroundColor: "#2d6100" }}>{e.mechanic}
-                                                    </p>
-                                                )
-                                            })}
-                                        </div>
-
-
-
-
-                                        <p className="m-0 p-0">{e.player_min} ~ {e.player_max} Players</p>
-                                        <p className="m-0 p-0">For ages {e.min_age} above</p>
                                     </div>
                                 </div>
-                                {checkStockOnBtn(e.stock)}
+                                {checkStockOnBtn(e.stock,e.id,e.name)}
                             </div>
 
                         )
