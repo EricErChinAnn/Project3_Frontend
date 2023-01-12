@@ -27,7 +27,15 @@ export default function Navbar() {
 
     customerContext.checkLocalStorage();
 
-  }, [customerContext.checkLogin,localStorage])
+  }, [customerContext.checkLogin, localStorage])
+
+  const clickCheckOut = () => {
+    console.log(customerContext.stripeSessions)
+    return (
+      customerContext.checkOut()
+    )
+  }
+
 
   return (
     <React.Fragment>
@@ -101,13 +109,13 @@ export default function Navbar() {
           <h5 className="offcanvas-title" id="offcanvasCartLabel"><i className="bi bi-basket3-fill"></i> My Cart</h5>
           <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        
 
-          {customerContext.checkLogin ? <OffCanvasCart /> : <React.Fragment><div>Start Shopping</div></React.Fragment>}
 
-        
+        {customerContext.checkLogin ? <OffCanvasCart /> : <React.Fragment><div>Start Shopping</div></React.Fragment>}
+
+
         <div className="offcanvas-footer p-3 d-flex justify-content-center" style={{ backgroundColor: "black" }}>
-          <h5 className="offcanvas-title" id="offcanvasCartLabel">Checkout</h5>
+          <button className="offcanvas-title" id="offcanvasCartLabel" onClick={clickCheckOut} >Checkout</button>
         </div>
       </div>
     </React.Fragment>

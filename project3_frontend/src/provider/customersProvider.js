@@ -13,6 +13,7 @@ export default function CustomerProvider(props) {
 
     const [cartValue, setCartValue] = useState([])
     const [grandTotal, setGrandTotal] = useState()
+    const [stripeSessions, setStripeSessions] = useState()
     // const navigateTo = useNavigate();
 
     const customerContext = {
@@ -24,6 +25,10 @@ export default function CustomerProvider(props) {
         grandTotal,
 
         checkLogin,
+        stripeSessions,
+
+
+
         // Customer Login,Logout 
         checkLocalStorage: async () => {
             try {
@@ -368,7 +373,7 @@ export default function CustomerProvider(props) {
             }
 
         },
-        
+
         removeFromCart: async (productId, productName) => {
 
             try {
@@ -415,7 +420,39 @@ export default function CustomerProvider(props) {
 
             }
 
+        },
+
+
+
+
+        //Checkout
+        checkOut: async () => {
+            console.log("Checkout")
+            try {
+
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': JSON.parse(localStorage.getItem('accessToken'))
+                }
+
+                let response = await axios.get(API_URL + `/checkout/frontend`,
+                    { headers: headers }
+                )
+
+                console.log(response.data)
+                setStripeSessions(response.data)
+
+            } catch (error) {
+
+                console.log(error)
+
+            }
         }
+
+
+
+
+
 
 
     }
