@@ -27,7 +27,7 @@ export default function Navbar() {
 
     customerContext.checkLocalStorage();
 
-  }, [customerContext.checkLogin])
+  }, [customerContext.checkLogin,localStorage])
 
   return (
     <React.Fragment>

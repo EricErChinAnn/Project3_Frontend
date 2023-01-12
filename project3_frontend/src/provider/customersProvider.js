@@ -12,10 +12,16 @@ export default function CustomerProvider(props) {
     const [checkLogin, setCheckLogin] = useState(false)
 
     const [cartValue, setCartValue] = useState([])
+    const [grandTotal, setGrandTotal] = useState()
     // const navigateTo = useNavigate();
 
     const customerContext = {
 
+        setCartValue,
+        cartValue,
+
+        setGrandTotal,
+        grandTotal,
 
         checkLogin,
         // Customer Login,Logout 
@@ -248,11 +254,6 @@ export default function CustomerProvider(props) {
 
 
 
-        setCartValue,
-        cartValue,
-
-
-
         //Customer Carts
         getCart: async () => {
             try {
@@ -271,10 +272,25 @@ export default function CustomerProvider(props) {
 
             } catch (error) {
 
+                localStorage.clear()
                 // console.log("getCartError")
                 console.log(error)
 
             }
+        },
+
+        updateCartQuantity: async ()=>{
+
+            try {
+                
+
+                
+            } catch (error) {
+
+                console.lof(error)
+            
+            }
+
         }
 
 
