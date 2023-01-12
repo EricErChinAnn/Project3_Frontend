@@ -25,10 +25,10 @@ export default function CustomerProvider(props) {
 
         checkLogin,
         // Customer Login,Logout 
-        checkLocalStorage: async () =>{
+        checkLocalStorage: async () => {
             try {
-                
-                if(localStorage?.getItem("accessToken")){
+
+                if (localStorage?.getItem("accessToken")) {
                     setCheckLogin(true)
                 } else {
                     setCheckLogin(false)
@@ -279,16 +279,41 @@ export default function CustomerProvider(props) {
             }
         },
 
-        updateCartQuantity: async ()=>{
+        updateCartQuantity: async (productId, quantity) => {
 
             try {
-                
 
-                
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': JSON.parse(localStorage.getItem('accessToken'))
+                }
+
+                let response = await axios.put(API_URL + `/cart/${productId}/quantity/update`,
+
+                    { newQuantity: parseInt(quantity) },
+
+                    { headers: headers }
+                )
+
+                console.log(response)
+
+
             } catch (error) {
 
-                console.lof(error)
-            
+                toast.error(
+                    `An error occurred while updating cart item. Please try again`, {
+                    position: "top-center",
+                    autoClose: 1800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                })
+
+                console.log(error)
+
             }
 
         }

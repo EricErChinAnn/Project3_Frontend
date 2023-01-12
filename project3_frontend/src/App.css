@@ -46,4 +46,10 @@ footer {
 }
 .backToTop:hover {
     opacity: 0.65;
+    cursor: pointer;
+}
+
+.removeCartItem:hover {
+    opacity: 0.65;
+    cursor: pointer;
 }
