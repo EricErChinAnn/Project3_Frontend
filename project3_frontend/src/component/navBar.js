@@ -14,6 +14,8 @@ import Login from "../pages/customers/Login";
 import Register from "../pages/customers/Register";
 
 import OffCanvasCart from "./offCanvasCart";
+import { toast } from "react-toastify";
+import { loadStripe } from '@stripe/stripe-js';
 
 export default function Navbar() {
 
@@ -29,11 +31,31 @@ export default function Navbar() {
 
   }, [customerContext.checkLogin, localStorage])
 
-  const clickCheckOut = () => {
-    console.log(customerContext.stripeSessions)
-    return (
-      customerContext.checkOut()
-    )
+  const clickCheckOut = async () => {
+
+    if (customerContext.cartValue?.length > 0) {
+
+      let response = await customerContext.checkOut()
+
+      const stripe = await loadStripe(response.publishableKey);
+      stripe.redirectToCheckout({"sessionId":response.sessionId});
+
+    } else {
+
+      toast.error(
+        `Cart is empty`, {
+        position: "top-center",
+        autoClose: 1800,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+
+    }
+
   }
 
 
@@ -117,6 +139,10 @@ export default function Navbar() {
         <div className="offcanvas-footer p-3 d-flex justify-content-center" style={{ backgroundColor: "black" }}>
           <button className="offcanvas-title" id="offcanvasCartLabel" onClick={clickCheckOut} >Checkout</button>
         </div>
+      </div>
+
+      <div class="center">
+        <span>Going to payment...</span>
       </div>
     </React.Fragment>
   )

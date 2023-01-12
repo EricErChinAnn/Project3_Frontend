@@ -13,7 +13,7 @@ export default function CustomerProvider(props) {
 
     const [cartValue, setCartValue] = useState([])
     const [grandTotal, setGrandTotal] = useState()
-    const [stripeSessions, setStripeSessions] = useState()
+    // const [stripeSessions, setStripeSessions] = useState()
     // const navigateTo = useNavigate();
 
     const customerContext = {
@@ -25,7 +25,7 @@ export default function CustomerProvider(props) {
         grandTotal,
 
         checkLogin,
-        stripeSessions,
+        // stripeSessions,
 
 
 
@@ -440,7 +440,9 @@ export default function CustomerProvider(props) {
                 )
 
                 console.log(response.data)
-                setStripeSessions(response.data)
+                // setStripeSessions(response.data)
+
+                return(response.data)
 
             } catch (error) {
 
