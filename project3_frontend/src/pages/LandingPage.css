@@ -1,0 +1,19 @@
+.landingPageTopPic{
+    width: 100%;
+    height: auto;
+    opacity: 0.5;
+}
+
+.landingPageTopPicDiv{
+    background-color: black;
+    text-align: center;
+}
+
+
+.welcomeTextContainer{
+    transform: translate(-50%, -50%);
+}
+
+.aLine{
+    border-top: 1px solid white;
+}

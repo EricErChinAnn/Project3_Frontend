@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 
 //Context & Provider
@@ -61,28 +60,29 @@ export default function Navbar() {
 
   }
 
-
   return (
     <React.Fragment>
 
       <Router>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid" >
-            <Link className='link navbar-brand' to="/"><h1>LandingPage</h1></Link>
+            <Link className='link navbar-brand' to="/"><div className="logoNavDiv"><img className="logoNav" src="tictaxtoeNS.png"  alt="Logo"/></div></Link>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className='link nav-link' to="/about">About Us</Link>
-              </li>
               <li className="nav-item">
                 <Link className='link nav-link' to="/products">Products</Link>
               </li>
-
+              <li className="nav-item">
+                <Link className='link nav-link' to="/about">About Us</Link>
+              </li>
               {!customerContext.checkLogin ?
 
                 //If not logged in
                 <li className="nav-item">
-                  <Link className='link nav-link' to="/customers/register">Register</Link>
-                  <Link className='link nav-link' to="/customers/login">Login</Link>
+                  <Link className='link nav-link' to="/customers/login">Login/Register</Link>
                 </li>
 
                 :
@@ -112,6 +112,7 @@ export default function Navbar() {
               }
 
             </ul>
+            </div>
           </div>
         </nav>
 
@@ -122,7 +123,7 @@ export default function Navbar() {
 
           <Route path='/products' element={<ProductsListing />} />
           <Route path='/orders/success' element={<Success />} />
-          <Route path='/orders/success' element={<Orders />} />
+          <Route path='/orders' element={<Orders />} />
           <Route path='/orders/error' element={<Error />} />
 
 
@@ -131,7 +132,6 @@ export default function Navbar() {
           <Route exact path="/form-submitted" element={<SubmittedForm />} />
 
         </Routes>
-
       </Router>
 
       <div className="offcanvas offcanvas-end text-bg-dark" tabIndex="-1" id="offcanvasCart" aria-labelledby="offcanvasRightLabel">
@@ -145,7 +145,7 @@ export default function Navbar() {
 
 
         <div className="offcanvas-footer p-3 d-flex justify-content-center" style={{ backgroundColor: "black" }}>
-          <button className="offcanvas-title" id="offcanvasCartLabel" onClick={clickCheckOut} >Checkout</button>
+          <h1 className="offcanvas-title" id="offcanvasCartLabel" onClick={clickCheckOut} >Checkout</h1>
         </div>
       </div>
     </React.Fragment>

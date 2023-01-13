@@ -1,3 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Press+Start+2P&display=swap');
+
+
+.fontPSP{
+    font-family: 'Press Start 2P', cursive;
+    color: #bd50f7;
+}
+
+.fontColor{
+    color: #8f0ad7;
+}
+
+.bgColor{
+    background-color: #8f0ad7;
+}
+
+.bgColorBtn:hover{
+    background-color: #bd50f7 !important;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    background-image: url("/workspace/Project3_Frontend/project3_frontend/public/backgroundImg.png");
+    
+}
+
 .link {
     text-decoration: none;
     color: whitesmoke;
@@ -52,4 +79,29 @@ footer {
 .removeCartItem:hover {
     opacity: 0.65;
     cursor: pointer;
+}
+
+.offCanvasCheckout:hover{
+    opacity: 0.65;
+    cursor: pointer;
+}
+
+.logoNav{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.logoNavDiv{
+    height: 50px;
+}
+
+.logoFooterDiv{
+    height:150px;
+}
+
+@media only screen and (min-width: 600px) {
+    #regiForm{
+        margin-left: 50px;
+        margin-right: 50px;
+    }
 }
