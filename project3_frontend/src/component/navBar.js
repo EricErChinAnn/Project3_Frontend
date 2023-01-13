@@ -148,10 +148,6 @@ export default function Navbar() {
           <button className="offcanvas-title" id="offcanvasCartLabel" onClick={clickCheckOut} >Checkout</button>
         </div>
       </div>
-
-      <div className="center">
-        <span>Loading...</span>
-      </div>
     </React.Fragment>
   )
 

@@ -12,24 +12,25 @@ export default function OffCanvasCart() {
     useEffect(() => {
 
         // console.log("Use effect Called")
-            customerContext.getCart().then((res) => {
+        customerContext.getCart().then((res) => {
 
-                let cart = res.data.results
-                // console.log("over here", cart)
-                customerContext.setCartValue(cart)
+            let cart = res.data.results
+            // console.log("over here", cart)
+            customerContext.setCartValue(cart)
 
-                let total = 0
-                // console.log(total)
-                customerContext.cartValue.map((each) => {
+            let total = 0
+            // console.log(total)
+            customerContext.cartValue.map((each) => {
 
-                    return (
-                        total = total + (parseInt(each.product.cost) / 100) * parseInt(each.quantity)
-                    )
-                })
-
-                customerContext.setGrandTotal(total)
-
+                return (
+                    total = total + (parseInt(each.product.cost) / 100) * parseInt(each.quantity)
+                )
             })
+
+            customerContext.setGrandTotal(total)
+
+
+        })
 
 
         // let customerCart = async () => {
@@ -58,20 +59,24 @@ export default function OffCanvasCart() {
 
 
 
-    }, [customerContext.checkLogin, 
-        // customerContext.cartValue
-        , changeQuantity, customerContext.toggle])
+    }, [customerContext.checkLogin,
+    // customerContext.cartValue
+    customerContext.grandTotal,
+        changeQuantity,
+    customerContext.toggle])
 
     // console.log(customerContext.cartValue)
 
-    const updateCartQuantity = async (productId, quantity) => {
+    const updateCartQuantity = (productId, quantity) => {
 
         customerContext.updateCartQuantity(productId, quantity)
+        customerContext.setToggle(!customerContext.toggle)
 
     }
 
-    const removeFromCart = async (productId, productName) => {
+    const removeFromCart = (productId, productName) => {
         customerContext.removeFromCart(productId, productName)
+        customerContext.setToggle(!customerContext.toggle)
     }
 
     return (
