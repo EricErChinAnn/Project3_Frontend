@@ -306,6 +306,8 @@ export default function CustomerProvider(props) {
 
                 console.log(response)
 
+                setToggle(!toggle)
+
 
             } catch (error) {
 
