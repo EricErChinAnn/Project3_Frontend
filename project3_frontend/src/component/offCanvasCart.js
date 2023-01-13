@@ -11,10 +11,11 @@ export default function OffCanvasCart() {
 
     useEffect(() => {
 
-        if (localStorage?.getItem("accessToken")) {
+        // console.log("Use effect Called")
             customerContext.getCart().then((res) => {
 
                 let cart = res.data.results
+                // console.log("over here", cart)
                 customerContext.setCartValue(cart)
 
                 let total = 0
@@ -29,9 +30,37 @@ export default function OffCanvasCart() {
                 customerContext.setGrandTotal(total)
 
             })
-        }
 
-    }, [customerContext.checkLogin, localStorage, customerContext.cartValue, changeQuantity])
+
+        // let customerCart = async () => {
+
+        //     console.log("Use effect Called")
+        //     await customerContext.getCart().then((res) => {
+        //         let cart = res.data.results
+        //         customerContext.setCartValue(cart)
+
+        //         let total = 0
+        //         // console.log(total)
+        //         customerContext.cartValue.map((each) => {
+
+        //             return (
+        //                 total = total + (parseInt(each.product.cost) / 100) * parseInt(each.quantity)
+        //             )
+        //         })
+
+        //         customerContext.setGrandTotal(total)
+
+        //     })
+
+        // }
+
+        // customerCart();
+
+
+
+    }, [customerContext.checkLogin, 
+        // customerContext.cartValue
+        , changeQuantity, customerContext.toggle])
 
     // console.log(customerContext.cartValue)
 
@@ -48,14 +77,14 @@ export default function OffCanvasCart() {
     return (
         <React.Fragment>
             <div className="offcanvas-body">
-                {customerContext.cartValue.map((e, i) => {
+                {customerContext.cartValue?.map((e, i) => {
 
                     return (
 
                         <div className="card shadow-lg text-bg-dark d-flex flex-row my-3 position-relative" key={i}>
 
                             {e.product.images.map((each, index) => {
-                                if (index == 0) {
+                                if (index === 0) {
                                     return (<img src={each.image_url} key={index} className="card-img-top ms-3" style={{ width: "100px", height: "auto", objectFit: "scale-down" }} alt="..." />)
                                 }
                             })}
@@ -100,7 +129,7 @@ export default function OffCanvasCart() {
                             </div>
 
                             <a className="position-absolute px-2 end-0 removeCartItem" style={{ color: "white" }}
-                            onClick={()=>{removeFromCart(e.product_id,e.product.name)}}
+                                onClick={() => { removeFromCart(e.product_id, e.product.name) }}
                             >
                                 <i className="bi bi-x-lg" ></i>
                             </a>

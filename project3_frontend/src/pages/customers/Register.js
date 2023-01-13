@@ -117,7 +117,7 @@ export default function Register(props) {
             )
         } else {
 
-            console.log(formValue)
+            // console.log(formValue)
             const result = await customerContext.register(formValue);
 
         }

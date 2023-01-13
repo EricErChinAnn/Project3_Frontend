@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import { loadStripe } from '@stripe/stripe-js';
 import Success from "../pages/checkouts/Success";
 import Error from "../pages/checkouts/Error";
+import Orders from "../pages/orders/OrderListing"
 
 export default function Navbar() {
 
@@ -40,7 +41,7 @@ export default function Navbar() {
       let response = await customerContext.checkOut()
 
       const stripe = await loadStripe(response.publishableKey);
-      stripe.redirectToCheckout({"sessionId":response.sessionId});
+      stripe.redirectToCheckout({ "sessionId": response.sessionId });
 
     } else {
 
@@ -75,12 +76,6 @@ export default function Navbar() {
               <li className="nav-item">
                 <Link className='link nav-link' to="/products">Products</Link>
               </li>
-              <li className="nav-item">
-                <Link className='link nav-link' to="/orders/success">Success</Link>
-              </li>
-              <li className="nav-item">
-                <Link className='link nav-link' to="/orders/error">Error</Link>
-              </li>
 
               {!customerContext.checkLogin ?
 
@@ -108,6 +103,9 @@ export default function Navbar() {
                     </Link>
                   </li>
                   <li className="nav-item">
+                    <Link className='link nav-link' to="/orders"><i class="bi bi-person-fill"></i></Link>
+                  </li>
+                  <li className="nav-item">
                     <Link className='link nav-link' onClick={customerLogout}>Logout</Link>
                   </li>
                 </React.Fragment>
@@ -124,6 +122,7 @@ export default function Navbar() {
 
           <Route path='/products' element={<ProductsListing />} />
           <Route path='/orders/success' element={<Success />} />
+          <Route path='/orders/success' element={<Orders />} />
           <Route path='/orders/error' element={<Error />} />
 
 
@@ -150,7 +149,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div class="center">
+      <div className="center">
         <span>Loading...</span>
       </div>
     </React.Fragment>

@@ -142,7 +142,7 @@ export default function ProductsListing() {
         const getProduct = async () => {
 
             const allProducts = await productContext.getProducts()
-            console.log(allProducts)
+            // console.log(allProducts)
             await setProducts(allProducts)
         }
 
@@ -165,7 +165,7 @@ export default function ProductsListing() {
 
     const searhBtnClick = async () => {
 
-        console.log(search.min_cost)
+        // console.log(search.min_cost)
 
         let paramsPayload = {
             'name': search.name,
@@ -191,11 +191,11 @@ export default function ProductsListing() {
             }
         });
 
-        console.log(searchParams)
+        // console.log(searchParams)
 
 
         const allProducts = await productContext.getProducts(searchParams)
-        console.log(allProducts)
+        // console.log(allProducts)
 
         if (allProducts) {
 
@@ -244,7 +244,7 @@ export default function ProductsListing() {
             'mechanics': [""],
         });
 
-        console.log(search)
+        // console.log(search)
     }
 
     let pleaseLogin = () => {

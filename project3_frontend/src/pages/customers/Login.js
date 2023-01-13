@@ -26,7 +26,7 @@ export default function Login(props) {
 
         const result = await customerContext.login(formValue);
 
-        console.log(result)
+        // console.log(result)
 
         if (!result) {
 
@@ -35,7 +35,7 @@ export default function Login(props) {
         } else {
 
             document.querySelector(".loginErrorMessage").style.display = "none"
-            console.log('Welcome back');
+            // console.log('Welcome back');
 
         }
 
@@ -66,7 +66,7 @@ export default function Login(props) {
                 // console.log(localStorage.getItem("refreshToken"))
                 let apple = await customerContext.refresh()
 
-                console.log(apple)
+                // console.log(apple)
             }
         }
 

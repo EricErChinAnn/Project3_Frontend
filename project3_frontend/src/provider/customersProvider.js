@@ -13,6 +13,7 @@ export default function CustomerProvider(props) {
 
     const [cartValue, setCartValue] = useState([])
     const [grandTotal, setGrandTotal] = useState()
+    const [toggle, setToggle] = useState(true)
     // const [stripeSessions, setStripeSessions] = useState()
     // const navigateTo = useNavigate();
 
@@ -23,6 +24,9 @@ export default function CustomerProvider(props) {
 
         setGrandTotal,
         grandTotal,
+
+        setToggle,
+        toggle,
 
         checkLogin,
         // stripeSessions,
@@ -205,7 +209,7 @@ export default function CustomerProvider(props) {
 
 
                 toast.error(
-                    `Session have ended, login again to continue.`, {
+                    `Error occured, try again later`, {
                     position: "top-center",
                     autoClose: 1800,
                     hideProgressBar: false,
@@ -268,20 +272,20 @@ export default function CustomerProvider(props) {
                     'Authorization': JSON.parse(localStorage.getItem('accessToken'))
                 }
 
-                let cart = await axios.get(API_URL + "/cart", {
+                let cart = await axios.get("https://6000-ericerchina-project3bac-s8ol8p2mxd0.ws-us82.gitpod.io/api/cart", {
                     headers: headers
                 })
 
-                // console.log(cart)
+                console.log("cart is here", cart)
                 return cart
 
             } catch (error) {
 
-                localStorage.clear()
                 // console.log("getCartError")
-                console.log(error)
+                // console.log(error)
 
             }
+
         },
 
         updateCartQuantity: async (productId, quantity) => {
@@ -351,7 +355,10 @@ export default function CustomerProvider(props) {
                     theme: "dark",
                 })
 
+                setToggle(!toggle)
+
                 console.log(response)
+                console.log(toggle)
 
 
             } catch (error) {
@@ -399,6 +406,8 @@ export default function CustomerProvider(props) {
                     theme: "dark",
                 })
 
+                setToggle(!toggle)
+
                 console.log(response)
 
 
@@ -442,7 +451,32 @@ export default function CustomerProvider(props) {
                 console.log(response.data)
                 // setStripeSessions(response.data)
 
-                return(response.data)
+                return (response.data)
+
+            } catch (error) {
+
+                console.log(error)
+
+            }
+        },
+
+
+
+        //Orders
+        getOrders: async () => {
+            try {
+
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': JSON.parse(localStorage.getItem('accessToken'))
+                }
+
+                let orders = await axios.get(API_URL + "/orders/customer", {
+                    headers: headers
+                })
+
+                // console.log(orders)
+                return orders.data
 
             } catch (error) {
 
@@ -450,8 +484,6 @@ export default function CustomerProvider(props) {
 
             }
         }
-
-
 
 
 
