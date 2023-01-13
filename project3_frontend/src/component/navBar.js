@@ -16,6 +16,8 @@ import Register from "../pages/customers/Register";
 import OffCanvasCart from "./offCanvasCart";
 import { toast } from "react-toastify";
 import { loadStripe } from '@stripe/stripe-js';
+import Success from "../pages/checkouts/Success";
+import Error from "../pages/checkouts/Error";
 
 export default function Navbar() {
 
@@ -73,6 +75,12 @@ export default function Navbar() {
               <li className="nav-item">
                 <Link className='link nav-link' to="/products">Products</Link>
               </li>
+              <li className="nav-item">
+                <Link className='link nav-link' to="/orders/success">Success</Link>
+              </li>
+              <li className="nav-item">
+                <Link className='link nav-link' to="/orders/error">Error</Link>
+              </li>
 
               {!customerContext.checkLogin ?
 
@@ -115,7 +123,8 @@ export default function Navbar() {
           <Route path='/customers/register' element={<Register />} />
 
           <Route path='/products' element={<ProductsListing />} />
-
+          <Route path='/orders/success' element={<Success />} />
+          <Route path='/orders/error' element={<Error />} />
 
 
           <Route path='/' element={<LandingPage />} />
@@ -142,7 +151,7 @@ export default function Navbar() {
       </div>
 
       <div class="center">
-        <span>Going to payment...</span>
+        <span>Loading...</span>
       </div>
     </React.Fragment>
   )
