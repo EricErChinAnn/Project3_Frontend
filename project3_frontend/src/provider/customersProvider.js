@@ -5,7 +5,7 @@ import axios from "axios";
 
 import CustomerContext from "../context/customers"
 
-const API_URL = "https://tictactoeadmin.onrender.com//api"
+const API_URL = "https://tictactoeadmin.onrender.com/api"
 
 export default function CustomerProvider(props) {
 
@@ -189,8 +189,8 @@ export default function CustomerProvider(props) {
             try {
 
 
-                await axios.post(API_URL + '/customers/register', customerData);
-                // console.log(response)
+                let response = await axios.post(API_URL + '/customers/register', customerData);
+                console.log(response)
 
                 toast.success(
                     `Account created.`, {
