@@ -294,7 +294,7 @@ export default function ProductsListing() {
                 {/* Search bar and button */}
                 <div>
                     {/* <form method="GET"> */}
-                    <label>Name</label>
+                    <label className="mt-3">Name</label>
                     <div className="input flex-nowrap">
                         <input type="text" className="form-control" placeholder="Name of Boardgame" aria-label="Username"
                             name="name" value={search.name} onChange={updateSearch}
@@ -305,7 +305,7 @@ export default function ProductsListing() {
                     <div className="collapse" id="collapseExample">
 
                         <div className="input flex-nowrap">
-                            <label>Budget</label>
+                            <label className="mt-2">Budget</label>
                             <div className="d-flex flex-row" >
                                 <input type="number" className="form-control mx-3" placeholder="Min cost in Dollars"
                                     name="min_cost" value={search.min_cost} onChange={updateSearch}
@@ -318,7 +318,7 @@ export default function ProductsListing() {
                         </div>
 
                         <div className="input flex-nowrap">
-                            <label>Players</label>
+                            <label className="mt-2">Players</label>
                             <div className="d-flex flex-row" >
                                 <input type="number" className="form-control mx-3" placeholder="Min Players"
                                     name="player_min" value={search.player_min} onChange={updateSearch}
@@ -331,21 +331,21 @@ export default function ProductsListing() {
                         </div>
 
                         <div className="input flex-nowrap">
-                            <label>Average Duration</label>
+                            <label className="mt-2">Average Duration</label>
                             <input type="number" className="form-control" placeholder="Enter whole number in Minutes"
                                 name="avg_duration" value={search.avg_duration} onChange={updateSearch}
                             />
                         </div>
 
                         <div className="input flex-nowrap">
-                            <label>Min Age</label>
+                            <label className="mt-2">Min Age</label>
                             <input type="number" className="form-control" placeholder="Enter a whole number"
                                 name="min_age" value={search.min_age} onChange={updateSearch}
                             />
                         </div>
 
                         <div className="input flex-nowrap">
-                            <label>Difficulty</label>
+                            <label className="mt-2">Difficulty</label>
                             <select className="form-select" aria-label="multiple select example"
                                 name="difficulty_id" value={search.difficulty_id} onChange={updateSearch}
                             >
@@ -358,7 +358,7 @@ export default function ProductsListing() {
 
 
                         <div className="input flex-nowrap">
-                            <label>Categories</label>
+                            <label className="mt-2">Categories</label>
                             <select className="form-select" multiple aria-label="multiple select example"
                                 name="categories" onChange={updateSearchMultiCate} value={search.categories}
                             >
@@ -372,7 +372,7 @@ export default function ProductsListing() {
 
 
                         <div className="input flex-nowrap">
-                            <label>Designers</label>
+                            <label className="mt-2">Designers</label>
                             <select className="form-select" multiple aria-label="multiple select example"
                                 name="designers" onChange={updateSearchMultiDes} value={search.designers}
                             >
@@ -386,7 +386,7 @@ export default function ProductsListing() {
 
 
                         <div className="input flex-nowrap">
-                            <label>Mechanics</label>
+                            <label className="mt-2">Mechanics</label>
                             <select className="form-select" multiple aria-label="multiple select example"
                                 name="mechanics" onChange={updateSearchMultiMec} value={search.mechanics}
                             >
