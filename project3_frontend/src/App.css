@@ -21,7 +21,7 @@
 body{
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
-    background-image: url("/workspace/Project3_Frontend/project3_frontend/public/backgroundImg.png");
+    background-image: url("../public/backgroundImg.png");
     
 }
 
