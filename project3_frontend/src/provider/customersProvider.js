@@ -5,7 +5,7 @@ import axios from "axios";
 
 import CustomerContext from "../context/customers"
 
-const API_URL = "https://6000-ericerchina-project3bac-s8ol8p2mxd0.ws-us82.gitpod.io/api"
+const API_URL = "https://tictactoeadmin.onrender.com//api"
 
 export default function CustomerProvider(props) {
 
@@ -272,7 +272,7 @@ export default function CustomerProvider(props) {
                     'Authorization': JSON.parse(localStorage.getItem('accessToken'))
                 }
 
-                let cart = await axios.get("https://6000-ericerchina-project3bac-s8ol8p2mxd0.ws-us82.gitpod.io/api/cart", {
+                let cart = await axios.get(API_URL + "/cart", {
                     headers: headers
                 })
 

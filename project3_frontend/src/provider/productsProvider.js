@@ -3,7 +3,7 @@ import axios from "axios";
 
 import ProductContext from "../context/products"
 
-const API_URL = "https://6000-ericerchina-project3bac-s8ol8p2mxd0.ws-us82.gitpod.io/api"
+const API_URL = "https://tictactoeadmin.onrender.com/api"
 
 export default function ProductsProvider(props) {
 
