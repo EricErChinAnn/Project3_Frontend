@@ -438,7 +438,7 @@ export default function CustomerProvider(props) {
 
         //Checkout
         checkOut: async () => {
-            console.log("Checkout")
+            // console.log("Checkout")
             try {
 
                 const headers = {
@@ -450,6 +450,7 @@ export default function CustomerProvider(props) {
                     { headers: headers }
                 )
 
+                console.log("Checkout in try")
                 console.log(response.data)
                 // setStripeSessions(response.data)
 
