@@ -451,7 +451,7 @@ export default function CustomerProvider(props) {
                 )
 
                 console.log(response.data)
-                setStripeSessions(response.data)
+                // setStripeSessions(response.data)
 
                 return (response.data)
 
