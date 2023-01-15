@@ -1,12 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Link, useHref } from "react-router-dom"
 
 //Context & Provider
 import CustomerContext from "../context/customers"
 
 //PAGES
-import AboutUs from '../pages/AboutUs';
-import SubmittedForm from "../pages/SubmitForm";
 import LandingPage from '../pages/LandingPage';
 import ProductsListing from "../pages/products/ProductsListing";
 import Login from "../pages/customers/Login";
@@ -22,7 +20,7 @@ import Orders from "../pages/orders/OrderListing"
 export default function Navbar() {
 
   const customerContext = useContext(CustomerContext)
-
+  
   const customerLogout = async () => {
     await customerContext.logout();
   }
@@ -34,9 +32,8 @@ export default function Navbar() {
   }, [customerContext.checkLogin, localStorage])
 
   const clickCheckOut = async () => {
-    console.log(customerContext.cartValue.length>0)
 
-    if (customerContext.cartValue.length > 0) {
+    if (customerContext.cartValue) {
 
       let response = await customerContext.checkOut()
       // console.log(response)
@@ -76,9 +73,6 @@ export default function Navbar() {
                 <li className="nav-item">
                   <Link className='link nav-link' to="/products">Products</Link>
                 </li>
-                <li className="nav-item">
-                  <Link className='link nav-link' to="/about">About Us</Link>
-                </li>
                 {!customerContext.checkLogin ?
 
                   //If not logged in
@@ -90,6 +84,9 @@ export default function Navbar() {
 
                   //If logged in
                   <React.Fragment>
+                    <li className="nav-item">
+                      <Link className='link nav-link' to="/orders">My Orders</Link>
+                    </li>
                     <li className="nav-item">
                       <Link className='link nav-link' data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="My Cart" onClick={(e) => { e.preventDefault(); }}>
                         <i className="bi bi-basket3-fill position-relative"
@@ -104,10 +101,7 @@ export default function Navbar() {
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link className='link nav-link' to="/orders"><i class="bi bi-person-fill"></i></Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className='link nav-link' onClick={customerLogout}>Logout</Link>
+                      <Link className='link nav-link' to="/" onClick={customerLogout}>Logout</Link>
                     </li>
                   </React.Fragment>
                 }
@@ -129,15 +123,13 @@ export default function Navbar() {
 
 
           <Route path='/' element={<LandingPage />} />
-          <Route path='/about' element={<AboutUs />} />
-          <Route exact path="/form-submitted" element={<SubmittedForm />} />
 
         </Routes>
       </Router>
 
       <div className="offcanvas offcanvas-end text-bg-dark" tabIndex="-1" id="offcanvasCart" aria-labelledby="offcanvasRightLabel">
         <div className="offcanvas-header" style={{ backgroundColor: "black" }}>
-          <h5 className="offcanvas-title" id="offcanvasCartLabel"><i className="bi bi-basket3-fill"></i> My Cart</h5>
+          <h5 className="offcanvas-title fontPSP" id="offcanvasCartLabel"><i className="bi bi-basket3-fill"></i> My Cart</h5>
           <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
 
@@ -145,7 +137,7 @@ export default function Navbar() {
         {customerContext.checkLogin ? <OffCanvasCart /> : <React.Fragment><div>Start Shopping</div></React.Fragment>}
 
 
-        <button className="offcanvas-footer p-3 d-flex justify-content-center " style={{ backgroundColor: "black", color: "white" }}>
+        <button className="offcanvas-footer p-3 d-flex justify-content-center fontPSP bgColor bgColorBtn" style={{ backgroundColor: "black", color: "white" }}>
           <h1 className="offcanvas-title" id="offcanvasCartLabel" onClick={clickCheckOut} >Checkout</h1>
         </button>
       </div>

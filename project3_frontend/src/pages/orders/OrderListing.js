@@ -2,12 +2,14 @@ import React, { useEffect, useState, useContext } from "react";
 import { toast } from "react-toastify";
 
 import CustomerContext from "../../context/customers";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductsListing() {
 
     const customerContext = useContext(CustomerContext)
 
     const [orders, setOrders] = useState()
+    let navigateTo = useNavigate()
 
     // const [search, setSearch] = useState({
     //     'name': "",
@@ -41,7 +43,7 @@ export default function ProductsListing() {
                 const allOrders = await customerContext.getOrders()
                 console.log(allOrders)
 
-                if(allOrders?.length>0){
+                if (allOrders?.length > 0) {
                     setOrders(allOrders)
                 }
             }
@@ -49,6 +51,8 @@ export default function ProductsListing() {
             getOrders();
 
         } else {
+
+            navigateTo("/customers/login")
 
             toast.error(
                 `Access denied, login to view orders`, {
@@ -61,6 +65,7 @@ export default function ProductsListing() {
                 progress: undefined,
                 theme: "dark",
             })
+
 
         }
 
@@ -85,11 +90,14 @@ export default function ProductsListing() {
         return (
 
             <React.Fragment>
+                <div className="container d-flex justify-content-center my-3">
+                    <h1 className="fontPSP">My Orders</h1>
+                </div>
 
-                <h1>My Orders</h1>
-                    <table className="table">
+                <div className="px-5 overflow-scroll">
+                    <table className='table' style={{ backgroundColor: "rgba(255, 255, 255)" }}>
                         <thead>
-                            <tr>
+                            <tr >
                                 <th>Order Id</th>
                                 <th>Customer Details</th>
                                 <th>Country</th>
@@ -248,6 +256,7 @@ export default function ProductsListing() {
 
                         </tbody>
                     </table>
+                </div>
             </React.Fragment >
 
         )

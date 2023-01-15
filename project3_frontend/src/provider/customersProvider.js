@@ -445,13 +445,15 @@ export default function CustomerProvider(props) {
                     'Content-Type': 'application/json',
                     'Authorization': JSON.parse(localStorage.getItem('accessToken'))
                 }
-                console.log("Checkout")
+
+                // console.log("Checkout")
+
                 let response = await axios.get(API_URL + `/checkout/frontend`,
                     { headers: headers }
                 )
                
-                console.log("Checkout in try")
-                console.log(response.data)
+                // console.log("Checkout in try")
+                // console.log(response.data)
                 // setStripeSessions(response.data)
 
                 return (response.data)

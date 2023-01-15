@@ -4,6 +4,7 @@ import "./ProductListing.css"
 import ProductContext from "../../context/products";
 import { toast } from "react-toastify";
 import CustomerContext from "../../context/customers";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductsListing() {
 
@@ -16,6 +17,7 @@ export default function ProductsListing() {
     const [categories, setCategories] = useState()
     const [designers, setDesigners] = useState()
     const [mechanics, setMechanics] = useState()
+    let navigateTo = useNavigate()
 
 
     const [search, setSearch] = useState({
@@ -259,23 +261,25 @@ export default function ProductsListing() {
             progress: undefined,
             theme: "dark",
         })
+
+        navigateTo("/customers/login")
     }
 
     let addToCartOne = (productId, productName) => {
         customerContext.addToCart(productId, productName, 1)
     }
 
-    let checkStockOnBtn = (stock,productId, productName) => {
+    let checkStockOnBtn = (stock, productId, productName) => {
         if (stock > 0) {
             if (localStorage?.getItem("accessToken")) {
-                return <a href="#" className="addToCartBtn btn btn-primary"
-                    onClick={(e)=>{
+                return <a href="#" className="addToCartBtn btn btn-primary bgColor bgColorBtn"
+                    onClick={(e) => {
                         e.preventDefault()
                         addToCartOne(productId, productName)
                     }}
                 >Add to Cart</a>
             } else {
-                return <button href="#" className="addToCartBtn btn btn-primary"
+                return <button href="#" className="addToCartBtn btn btn-primary bgColor bgColorBtn"
                     onClick={pleaseLogin}
                 >Add to Cart</button>
             }
@@ -290,145 +294,142 @@ export default function ProductsListing() {
         return (
 
             <React.Fragment>
-
-                {/* Search bar and button */}
-                <div>
-                    {/* <form method="GET"> */}
-                    <label className="mt-3">Name</label>
-                    <div className="input flex-nowrap">
-                        <input type="text" className="form-control" placeholder="Name of Boardgame" aria-label="Username"
-                            name="name" value={search.name} onChange={updateSearch}
-                        />
-                    </div>
-
-
-                    <div className="collapse" id="collapseExample">
-
-                        <div className="input flex-nowrap">
-                            <label className="mt-2">Budget</label>
-                            <div className="d-flex flex-row" >
-                                <input type="number" className="form-control mx-3" placeholder="Min cost in Dollars"
-                                    name="min_cost" value={search.min_cost} onChange={updateSearch}
-                                />
-                                <h3>~</h3>
-                                <input type="number" className="form-control mx-3" placeholder="Max cost in Dollars"
-                                    name="max_cost" value={search.max_cost} onChange={updateSearch}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="input flex-nowrap">
-                            <label className="mt-2">Players</label>
-                            <div className="d-flex flex-row" >
-                                <input type="number" className="form-control mx-3" placeholder="Min Players"
-                                    name="player_min" value={search.player_min} onChange={updateSearch}
-                                />
-                                <h3>~</h3>
-                                <input type="number" className="form-control mx-3" placeholder="Max Players"
-                                    name="player_max" value={search.player_max} onChange={updateSearch}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="input flex-nowrap">
-                            <label className="mt-2">Average Duration</label>
-                            <input type="number" className="form-control" placeholder="Enter whole number in Minutes"
-                                name="avg_duration" value={search.avg_duration} onChange={updateSearch}
-                            />
-                        </div>
-
-                        <div className="input flex-nowrap">
-                            <label className="mt-2">Min Age</label>
-                            <input type="number" className="form-control" placeholder="Enter a whole number"
-                                name="min_age" value={search.min_age} onChange={updateSearch}
-                            />
-                        </div>
-
-                        <div className="input flex-nowrap">
-                            <label className="mt-2">Difficulty</label>
-                            <select className="form-select" aria-label="multiple select example"
-                                name="difficulty_id" value={search.difficulty_id} onChange={updateSearch}
-                            >
-                                <option value="">All Difficulties</option>
-                                {difficulty.map((e, i) => {
-                                    return (<option key={i} value={e.id}>{e.difficulty}</option>)
-                                })}
-                            </select>
-                        </div>
-
-
-                        <div className="input flex-nowrap">
-                            <label className="mt-2">Categories</label>
-                            <select className="form-select" multiple aria-label="multiple select example"
-                                name="categories" onChange={updateSearchMultiCate} value={search.categories}
-                            >
-                                <option value="" hidden>------ All Categories ------</option>
-                                {categories.map((e, i) => {
-                                    return (<option key={i} value={e.id}>{e.category}</option>)
-                                })}
-                            </select>
-                        </div>
-
-
-
-                        <div className="input flex-nowrap">
-                            <label className="mt-2">Designers</label>
-                            <select className="form-select" multiple aria-label="multiple select example"
-                                name="designers" onChange={updateSearchMultiDes} value={search.designers}
-                            >
-                                <option value="" hidden>------ All Designers ------</option>
-                                {designers.map((e, i) => {
-                                    return (<option key={i} value={e.id}>{e.designer}</option>)
-                                })}
-                            </select>
-                        </div>
-
-
-
-                        <div className="input flex-nowrap">
-                            <label className="mt-2">Mechanics</label>
-                            <select className="form-select" multiple aria-label="multiple select example"
-                                name="mechanics" onChange={updateSearchMultiMec} value={search.mechanics}
-                            >
-                                <option value="" hidden>------ All Mechanics ------</option>
-                                {mechanics.map((e, i) => {
-                                    return (<option key={i} value={e.id}>{e.mechanic}</option>)
-                                })}
-                            </select>
-                        </div>
-
-
-
-
-
-
-                    </div>
-
-                    <div className="d-flex justify-content-center">
-                        <a type="submit" className="m-2 btn btn-primary" data-bs-toggle="collapse" href="#collapseExample">Advance Search</a>
-                        <input type="submit" className="m-2 btn btn-primary" value="Search" onClick={searhBtnClick} />
-                        <input type="submit" className="m-2 btn btn-primary" value="Reset" onClick={searchReset} />
-                    </div>
-
-                    {/* </form> */}
+                <div className="d-flex justify-content-center">
+                    <h1 className="fontPSP mt-4">Products</h1>
                 </div>
 
+                {/* Search bar and button */}
+                <div className='p-4'>
+                    <div className='border p-3 rounded border-opacity-50' style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}>
+                        {/* <form method="GET"> */}
+                        <label className="mt-3">Name</label>
+                        <div className="input flex-nowrap">
+                            <input type="text" className="form-control" placeholder="Name of Boardgame" aria-label="Username"
+                                name="name" value={search.name} onChange={updateSearch}
+                            />
+                        </div>
 
 
-                <h1>Products</h1>
+                        <div className="collapse" id="collapseExample">
+
+                            <div className="input flex-nowrap">
+                                <label className="mt-3">Budget</label>
+                                <div className="d-flex flex-row" >
+                                    <input type="number" className="form-control mx-3" placeholder="Min cost in Dollars"
+                                        name="min_cost" value={search.min_cost} onChange={updateSearch}
+                                    />
+                                    <h3>~</h3>
+                                    <input type="number" className="form-control mx-3" placeholder="Max cost in Dollars"
+                                        name="max_cost" value={search.max_cost} onChange={updateSearch}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="input flex-nowrap">
+                                <label className="mt-3">Players</label>
+                                <div className="d-flex flex-row" >
+                                    <input type="number" className="form-control mx-3" placeholder="Min Players"
+                                        name="player_min" value={search.player_min} onChange={updateSearch}
+                                    />
+                                    <h3>~</h3>
+                                    <input type="number" className="form-control mx-3" placeholder="Max Players"
+                                        name="player_max" value={search.player_max} onChange={updateSearch}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="input flex-nowrap">
+                                <label className="mt-3">Average Duration</label>
+                                <input type="number" className="form-control" placeholder="Enter whole number in Minutes"
+                                    name="avg_duration" value={search.avg_duration} onChange={updateSearch}
+                                />
+                            </div>
+
+                            <div className="input flex-nowrap">
+                                <label className="mt-3">Min Age</label>
+                                <input type="number" className="form-control" placeholder="Enter a whole number"
+                                    name="min_age" value={search.min_age} onChange={updateSearch}
+                                />
+                            </div>
+
+                            <div className="input flex-nowrap">
+                                <label className="mt-3">Difficulty</label>
+                                <select className="form-select" aria-label="multiple select example"
+                                    name="difficulty_id" value={search.difficulty_id} onChange={updateSearch}
+                                >
+                                    <option value="">All Difficulties</option>
+                                    {difficulty.map((e, i) => {
+                                        return (<option key={i} value={e.id}>{e.difficulty}</option>)
+                                    })}
+                                </select>
+                            </div>
+
+
+                            <div className="input flex-nowrap">
+                                <label className="mt-3">Categories</label>
+                                <select className="form-select" multiple aria-label="multiple select example"
+                                    name="categories" onChange={updateSearchMultiCate} value={search.categories}
+                                >
+                                    <option value="" hidden>------ All Categories ------</option>
+                                    {categories.map((e, i) => {
+                                        return (<option key={i} value={e.id}>{e.category}</option>)
+                                    })}
+                                </select>
+                            </div>
+
+
+
+                            <div className="input flex-nowrap">
+                                <label className="mt-3">Designers</label>
+                                <select className="form-select" multiple aria-label="multiple select example"
+                                    name="designers" onChange={updateSearchMultiDes} value={search.designers}
+                                >
+                                    <option value="" hidden>------ All Designers ------</option>
+                                    {designers.map((e, i) => {
+                                        return (<option key={i} value={e.id}>{e.designer}</option>)
+                                    })}
+                                </select>
+                            </div>
+
+
+
+                            <div className="input flex-nowrap">
+                                <label className="mt-3">Mechanics</label>
+                                <select className="form-select" multiple aria-label="multiple select example"
+                                    name="mechanics" onChange={updateSearchMultiMec} value={search.mechanics}
+                                >
+                                    <option value="" hidden>------ All Mechanics ------</option>
+                                    {mechanics.map((e, i) => {
+                                        return (<option key={i} value={e.id}>{e.mechanic}</option>)
+                                    })}
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div className="d-flex justify-content-center">
+                            <a type="submit" className="m-2 btn btn-primary bgColor bgColorBtn" data-bs-toggle="collapse" href="#collapseExample">Advance Search</a>
+                            <input type="submit" className="m-2 btn btn-primary bgColor bgColorBtn" value="Search" onClick={searhBtnClick} />
+                            <input type="submit" className="m-2 btn btn-primary bgColor bgColorBtn" value="Reset" onClick={searchReset} />
+                        </div>
+
+                        {/* </form> */}
+                    </div>
+                </div>
 
                 {/* Map display of each Product */}
                 {
                     products.map((e, i) => {
                         return (
+                            <div className="px-4 mb-4">
                             <div className=" mx-2 my-2 d-flex flex-column" key={i}>
                                 <div className="card text-bg-dark eachCard " >
                                     <img src={e.images[0].image_url} className="card-img" alt="No Image Found" />
                                     <div className="card-img-overlay d-flex align-items-end">
                                         <div className="d-flex flex-column mb-5 w-100">
-                                            <div className="d-flex flex-d justify-content-between">
+                                            <div className="d-flex flex-d justify-content-between changeIfSmall">
                                                 <div>
-                                                    <h3 className="card-title m-0 p-0">{e.name}</h3>
+                                                    <h3 className="fontPSP card-title m-0 p-0" style={{color:"white"}}>{e.name}</h3>
                                                     <p className="m-0 p-0">{e.difficulty.difficulty}</p>
                                                 </div>
                                                 <div>
@@ -439,7 +440,7 @@ export default function ProductsListing() {
 
 
 
-                                            <div className="d-flex flex-row flex-wrap my-1">
+                                            <div className="d-flex flex-row flex-wrap my-1 disappearIfSmall">
                                                 {e.categories.map((e, i) => {
                                                     return (
                                                         <p className="my-1 mx-1 px-3 rounded-pill flex-nowrap" key={i}
@@ -450,7 +451,7 @@ export default function ProductsListing() {
                                             </div>
 
 
-                                            <div className="d-flex flex-row flex-wrap my-1">
+                                            <div className="d-flex flex-row flex-wrap my-1 disappearIfSmall">
                                                 {e.mechanics.map((e, i) => {
                                                     return (
                                                         <p className="my-1 mx-1 px-3 rounded-pill flex-nowrap" key={i}
@@ -468,7 +469,8 @@ export default function ProductsListing() {
                                         </div>
                                     </div>
                                 </div>
-                                {checkStockOnBtn(e.stock,e.id,e.name)}
+                                {checkStockOnBtn(e.stock, e.id, e.name)}
+                            </div>
                             </div>
 
                         )

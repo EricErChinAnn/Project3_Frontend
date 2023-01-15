@@ -1,6 +1,7 @@
 import React from "react";
 import "./LandingPage.css";
 import { useNavigate } from "react-router-dom";
+import AboutUs from "./AboutUs";
 
 export default function LandingPage() {
     let navigateTo = useNavigate()
@@ -38,6 +39,8 @@ export default function LandingPage() {
                     </div>
                 </div>
             </div>
+
+            <AboutUs/>
 
         </React.Fragment>
     )

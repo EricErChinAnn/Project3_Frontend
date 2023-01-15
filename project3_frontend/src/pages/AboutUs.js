@@ -1,37 +1,35 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-export default function AboutUs(){
-
-    const [ formValue, setFormValue ] = useState({
-        name:"",
-        email:""
-    })
-
-    const navigate = useNavigate();
-
-    function submitForm() {
-        navigate(
-            '/form-submitted',
-            {"state":{"formData":formValue}}
-        )
-    }   
+export default function AboutUs() {
 
     return (
         <React.Fragment>
-            <h1>About Us</h1>
-            <div>
-                <div>
-                    <label>Name:</label>
-                    <input type="text" name="name" value={formValue.name}
-                    onChange={(e)=>{setFormValue({...formValue, [e.target.name]:e.target.value})}}/>
+            <div className="my-4" id="aboutUs">
+                <div className="d-flex justify-content-center">
+                    <h1 className="fontPSP">About Us</h1>
                 </div>
-                <div>
-                    <label>Email:</label>
-                    <input type="text" name="email" value={formValue.email}
-                    onChange={(e)=>{setFormValue({...formValue, [e.target.name]:e.target.value})}}/>
+                <div className="mt-3">
+                    <div className="px-4">
+                    <h3 className="fontPSP">What is TixTaxToe?</h3>
+                    <p>
+                        TixTaxToe is an online shop that aims to be the definitive source for board game and card game content.
+                    </p>
+                    </div>
+                    <div className="px-4">
+                    <h3 className="fontPSP">What kind of games are here?</h3>
+                    <p>
+                        Here you'll find many types of board games, including thousands you've probably never seen in a store! We cover not only
+                        board games but also dice games, card games, tile-laying games, and games of dexterity. We have abstracts, economic games,
+                        dungeon crawls, city building, diplomacy and negotiation, trading, puzzle games, strategy games, party games, war games, and many more.
+                        We run the gamut from the light and whimsical Carcassonne to the serious and heavy empire-building of Twilight Imperium: Fourth Edition.
+                        Well-known games like Monopoly exist in the database as well, although you'll find almost all users prefer modern games that exhibit advancements
+                        in game play and component quality since Monopoly was first published.
+                    </p>
+                    </div>
                 </div>
-                <button onClick={submitForm}>Submit</button>
+                <div className="d-flex justify-content-center">
+                    <button className="btn btn-primary bgColor bgColorBtn">Join Us</button>
+                </div>
             </div>
         </React.Fragment>
 
