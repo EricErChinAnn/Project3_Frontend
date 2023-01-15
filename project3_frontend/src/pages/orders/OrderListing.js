@@ -62,7 +62,7 @@ export default function ProductsListing() {
 
         }
 
-    }, [])
+    }, [orders])
 
     const changeDisplayDate = (value) => {
         return value.split('T')[0]
