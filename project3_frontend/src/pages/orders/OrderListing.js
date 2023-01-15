@@ -7,7 +7,7 @@ export default function ProductsListing() {
 
     const customerContext = useContext(CustomerContext)
 
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState()
 
     // const [search, setSearch] = useState({
     //     'name': "",
@@ -39,9 +39,11 @@ export default function ProductsListing() {
             const getOrders = async () => {
 
                 const allOrders = await customerContext.getOrders()
-                // console.log(allOrders)
+                console.log(allOrders)
 
-                setOrders(allOrders)
+                if(allOrders?.length>0){
+                    setOrders(allOrders)
+                }
             }
 
             getOrders();
@@ -62,7 +64,7 @@ export default function ProductsListing() {
 
         }
 
-    }, [orders])
+    }, [])
 
     const changeDisplayDate = (value) => {
         return value.split('T')[0]
@@ -100,12 +102,12 @@ export default function ProductsListing() {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders?.map((e, i) => {
+                            {orders.map((e, i) => {
                                 if (e.status_id === 1) {
                                     return (
                                         <tr className="table-secondary" key={i}>
                                             <td>{e.id}</td>
-                                            <td>{e.customers.map((each, index) => {
+                                            <td>{e.customers?.map((each, index) => {
                                                 return (
                                                     <div key={index}>
                                                         <div>{each.username}</div>
