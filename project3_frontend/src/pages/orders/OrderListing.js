@@ -100,7 +100,7 @@ export default function ProductsListing() {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map((e, i) => {
+                            {orders?.map((e, i) => {
                                 if (e.status_id === 1) {
                                     return (
                                         <tr className="table-secondary" key={i}>
