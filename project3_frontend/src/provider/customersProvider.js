@@ -276,7 +276,7 @@ export default function CustomerProvider(props) {
                     headers: headers
                 })
 
-                console.log("cart is here", cart)
+                // console.log("cart is here", cart)
                 return cart
 
             } catch (error) {
@@ -440,16 +440,16 @@ export default function CustomerProvider(props) {
         checkOut: async () => {
             // console.log("Checkout")
             try {
-
+                
                 const headers = {
                     'Content-Type': 'application/json',
                     'Authorization': JSON.parse(localStorage.getItem('accessToken'))
                 }
-
+                console.log("Checkout")
                 let response = await axios.get(API_URL + `/checkout/frontend`,
                     { headers: headers }
                 )
-
+               
                 console.log("Checkout in try")
                 console.log(response.data)
                 // setStripeSessions(response.data)

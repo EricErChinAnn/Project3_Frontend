@@ -34,11 +34,12 @@ export default function Navbar() {
   }, [customerContext.checkLogin, localStorage])
 
   const clickCheckOut = async () => {
+    console.log(customerContext.cartValue.length>0)
 
-    if (customerContext.cartValue?.length > 0) {
+    if (customerContext.cartValue.length > 0) {
 
       let response = await customerContext.checkOut()
-
+      // console.log(response)
       const stripe = await loadStripe(response.publishableKey);
       stripe.redirectToCheckout({ "sessionId": response.sessionId });
 
@@ -66,52 +67,52 @@ export default function Navbar() {
       <Router>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid" >
-            <Link className='link navbar-brand' to="/"><div className="logoNavDiv"><img className="logoNav" src="tictaxtoeNS.png"  alt="Logo"/></div></Link>
+            <Link className='link navbar-brand' to="/"><div className="logoNavDiv"><img className="logoNav" src="tictaxtoeNS.png" alt="Logo" /></div></Link>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+              <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className='link nav-link' to="/products">Products</Link>
-              </li>
-              <li className="nav-item">
-                <Link className='link nav-link' to="/about">About Us</Link>
-              </li>
-              {!customerContext.checkLogin ?
-
-                //If not logged in
+              <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link className='link nav-link' to="/customers/login">Login/Register</Link>
+                  <Link className='link nav-link' to="/products">Products</Link>
                 </li>
+                <li className="nav-item">
+                  <Link className='link nav-link' to="/about">About Us</Link>
+                </li>
+                {!customerContext.checkLogin ?
 
-                :
-
-                //If logged in
-                <React.Fragment>
+                  //If not logged in
                   <li className="nav-item">
-                    <Link className='link nav-link' data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="My Cart" onClick={(e) => { e.preventDefault(); }}>
-                      <i className="bi bi-basket3-fill position-relative"
-                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="My Cart"
-                        style={{ fontSize: "25px" }}>
-                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "10px" }}>
-
-                          {(customerContext.checkLogin || localStorage.getItem("accessToken")) && customerContext.cartValue && customerContext.cartValue.length !== 0 ? customerContext.cartValue.length : null}
-
-                        </span>
-                      </i>
-                    </Link>
+                    <Link className='link nav-link' to="/customers/login">Login/Register</Link>
                   </li>
-                  <li className="nav-item">
-                    <Link className='link nav-link' to="/orders"><i class="bi bi-person-fill"></i></Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className='link nav-link' onClick={customerLogout}>Logout</Link>
-                  </li>
-                </React.Fragment>
-              }
 
-            </ul>
+                  :
+
+                  //If logged in
+                  <React.Fragment>
+                    <li className="nav-item">
+                      <Link className='link nav-link' data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="My Cart" onClick={(e) => { e.preventDefault(); }}>
+                        <i className="bi bi-basket3-fill position-relative"
+                          data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="My Cart"
+                          style={{ fontSize: "25px" }}>
+                          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "10px" }}>
+
+                            {(customerContext.checkLogin || localStorage.getItem("accessToken")) && customerContext.cartValue && customerContext.cartValue.length !== 0 ? customerContext.cartValue.length : null}
+
+                          </span>
+                        </i>
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className='link nav-link' to="/orders"><i class="bi bi-person-fill"></i></Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className='link nav-link' onClick={customerLogout}>Logout</Link>
+                    </li>
+                  </React.Fragment>
+                }
+
+              </ul>
             </div>
           </div>
         </nav>
@@ -144,9 +145,9 @@ export default function Navbar() {
         {customerContext.checkLogin ? <OffCanvasCart /> : <React.Fragment><div>Start Shopping</div></React.Fragment>}
 
 
-        <div className="offcanvas-footer p-3 d-flex justify-content-center" style={{ backgroundColor: "black" }}>
+        <button className="offcanvas-footer p-3 d-flex justify-content-center " style={{ backgroundColor: "black", color: "white" }}>
           <h1 className="offcanvas-title" id="offcanvasCartLabel" onClick={clickCheckOut} >Checkout</h1>
-        </div>
+        </button>
       </div>
     </React.Fragment>
   )
