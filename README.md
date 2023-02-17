@@ -13,6 +13,7 @@
     <ul>
         <li><a href="#design">Design</a></li>
         <li><a href="#database">Database</a></li>
+        <li><a href="#site-navigation">Site Navigation</a></li>
     </ul>
     </li>
         <li>
@@ -76,9 +77,39 @@ We decided to use an array of colors that are more slick and give a vibe of matu
 As for the fonts, we used **Press Start 2P** as we still want user to know this is a TTG site and **Montserrat** to deal with the readability of the sites.
 <p align="right">(<a href="#tic-tax-toe"> Back to top </a>)</p>
 
+### Mock Up
+![Mock up](img/mock.png)
+The site have gone through multiple changes, the one above is the alpha version of the site.
+<p align="right">(<a href="#tic-tax-toe"> Back to top </a>)</p>
+
 ## Database
 ![Database of the alpha version ](img/database.png)
 The databasehave gone through multiple iterations and improvements. Many changes have been made compared to the one shown above. 
+<p align="right">(<a href="#tic-tax-toe"> Back to top </a>)</p>
+
+## Site Navigation
+![Greetings](img/SiteNav.png)
+ <ul>
+        <li>Home Page</li>
+            <ul><li>Show Company's infomation and a CTA to Product Page</li></ul>
+        <li>Product Page</li>
+            <ul><li>Show Products on sales</li></ul>
+            <ul><li>Allow Filter/Search on products</li></ul>
+        <li>Login Page</li>
+            <ul><li>Account validation for logging in</li></ul>
+        <li>Register Page</li>
+            <ul><li>Allow creations of new account</li></ul>
+        <li>My Order Page</li>
+            <ul><li>Order status's are color coded</li></ul>
+            <ul><li>Allow user to view detailed receipt</li></ul>
+        <li>View Receipt Page</li>
+            <ul><li>Detailed receipt with invoice date</li></ul>
+        <li>My Cart Page</li>
+            <ul><li>Show Products in Cart</li></ul>
+            <ul><li>Allow edit of quantity and removal of products from cart</li></ul>
+        <li>Check Out Page</li>
+            <ul><li>Payment process of cart</li></ul>
+</ul>
 <p align="right">(<a href="#tic-tax-toe"> Back to top </a>)</p>
 
 ## Features
